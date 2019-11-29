@@ -25,3 +25,7 @@ erl_crash.dump
 ex_aliyun_amqp-*.tar
 
 *.swp
+.DS_Store
+.idea
+*.sublime-project
+*.sublime-workspace
