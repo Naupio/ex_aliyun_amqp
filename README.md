@@ -19,7 +19,6 @@ end
 ```elixir
 
   def main() do
-
     options = [
       access_id: "",
       secret_key: "",
@@ -30,9 +29,8 @@ end
 
     {:ok, connection} = ExAliyunAMQP.Connection.open(options)
 
-    # The returned `connection` is an `AMQP.Connection`, and then
-    # can be used for the ongoing call to `AMQP.Channel`.
-
+    # The returned `connection` is an AMQP.Connection, and then
+    # can be used for the ongoing call to AMQP.Channel.open/1 .
   end
 
 ```
