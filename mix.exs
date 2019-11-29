@@ -32,7 +32,7 @@ defmodule ExAliyunAmqp.MixProject do
   end
 
   defp description do
-    "Aliyun TableStore SDK for Elixir/Erlang"
+    "Aliyun AMQP SDK for Elixir/Erlang"
   end
 
   defp package do
