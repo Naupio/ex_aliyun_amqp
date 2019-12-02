@@ -24,7 +24,7 @@ end
       secret_key: "",
       owner_id: "",
       host: "",
-      virtual_host
+      virtual_host: ""
     ]
 
     {:ok, connection} = ExAliyunAMQP.Connection.open(options)
