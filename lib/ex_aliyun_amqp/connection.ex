@@ -27,20 +27,7 @@ defmodule ExAliyunAMQP.Connection do
   @spec open(keyword, String.t() | :undefined) ::
           {:ok, AMQP.Connection.t()} | {:error, atom()} | {:error, any()}
   def open(options \\ [], name \\ :undefined) do
-
-    access_id = get_required(options, :access_id)
-    secret_key = get_required(options, :secret_key)
-    owner_id = get_required(options, :owner_id)
-
-    get_required(options, :host)
-    get_required(options, :virtual_host)
-
-    options
-    |> Keyword.merge(
-      username: username(owner_id, access_id),
-      password: password(secret_key)
-    )
-    |> AMQP.Connection.open(name)
+    AMQP.Connection.open(options(options), name)
   end
 
   @doc """
@@ -48,6 +35,24 @@ defmodule ExAliyunAMQP.Connection do
   """
   @spec close(AMQP.Connection.t()) :: :ok | {:error, any}
   defdelegate close(connection), to: AMQP.Connection
+
+  @doc """
+  Prepare options of connection with Alibaba AMQP product's authorization, please see options of open/2 for details.
+  """
+  @spec options(keyword) :: keyword
+  def options(options) do
+    access_id = get_required(options, :access_id)
+    secret_key = get_required(options, :secret_key)
+    owner_id = get_required(options, :owner_id)
+
+    get_required(options, :host)
+    get_required(options, :virtual_host)
+
+    Keyword.merge(options, [
+      username: username(owner_id, access_id),
+      password: password(secret_key)
+    ])
+  end
 
   defp get_required(options, key) do
     case Keyword.get(options, key) do
