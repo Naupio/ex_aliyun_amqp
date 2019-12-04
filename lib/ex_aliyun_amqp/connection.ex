@@ -37,7 +37,7 @@ defmodule ExAliyunAMQP.Connection do
   defdelegate close(connection), to: AMQP.Connection
 
   @doc """
-  Prepare options of connection with Alibaba AMQP product's authorization, please see options of open/2 for details.
+  Prepare options of connection with Alibaba AMQP product's authorization, please see options of `open/2` for details.
   """
   @spec options(keyword) :: keyword
   def options(options) do
