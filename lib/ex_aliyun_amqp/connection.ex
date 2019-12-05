@@ -38,6 +38,10 @@ defmodule ExAliyunAMQP.Connection do
 
   @doc """
   Prepare options of connection with Alibaba AMQP product's authorization, please see options of `open/2` for details.
+
+  The `:access_id`, `:secret_key`, `:owner_id` option are not AMQP connection starndard options, they are used to construct
+  the required `:username` and `:password` option, to keep the returned options may used in other AMQP client initialization
+  (e.g. `BroadwayRabbitMQ.AmqpClient.init/1`), these 3 options are not in the returned.
   """
   @spec options(keyword) :: keyword
   def options(options) do
@@ -48,7 +52,9 @@ defmodule ExAliyunAMQP.Connection do
     get_required(options, :host)
     get_required(options, :virtual_host)
 
-    Keyword.merge(options, [
+    options
+    |> Keyword.drop([:access_id, :secret_key, :owner_id])
+    |> Keyword.merge([
       username: username(owner_id, access_id),
       password: password(secret_key)
     ])
